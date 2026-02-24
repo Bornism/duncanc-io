@@ -1,0 +1,26 @@
+Sure! Here's what each line does:
+
+**`npm run new-post`**
+This runs the AI CLI script we built. It'll ask you in the terminal:
+- What's your post title?
+- What tags? (tech, finance, etc.)
+- What tone? (casual, technical, educational)
+- Use AI to draft it? (yes/no)
+
+Then Claude or Gemini writes a full draft and saves it as a `.md` file in `src/content/blog/`. You can then open it in VS Code and edit it however you want.
+
+**`git add .`**
+The `.` means "everything." This tells Git "hey, I have new/changed files, stage them all for a commit." Think of it like selecting files to package up.
+
+**`git commit -m "new post: title here"`**
+This saves a snapshot of your changes locally with a message describing what you did. Like saving a version in version control. The `-m` just means the message comes inline in quotes.
+
+**`git push`**
+This uploads your commit to GitHub. The moment this completes, GitHub Actions kicks off, Vercel detects the change, rebuilds your site, and deploys it. Your post is live in about 30 seconds.
+
+So the whole flow is:
+```
+Write post → save it → snapshot it → upload it → automatically live
+```
+
+Does that make sense?

@@ -1,0 +1,38 @@
+Site Flow
+
+You write a .md file
+    ↓
+git push to GitHub
+    ↓
+GitHub Actions builds the site
+    ↓
+Vercel deploys it to their CDN
+    ↓
+Someone types duncanc.io
+    ↓
+Porkbun DNS points them to Vercel
+    ↓
+They see your site in under a second
+
+
+
+Blog Site Flow
+npm run new-post
+    ↓
+AI generates a .md file in src/content/blog/
+    ↓
+You edit it in VS Code
+    ↓
+git add .
+git commit -m "new post: title"
+git push → code (your .md file) lands on GitHub
+    ↓
+GitHub Actions detects the push
+    ↓
+Spins up a VM, runs npm run build
+    ↓
+Astro converts your .md file into a real HTML page
+    ↓
+Built HTML gets sent to Vercel
+    ↓
+Live at duncanc.io/blog/your-post-title
