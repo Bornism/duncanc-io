@@ -1,0 +1,20 @@
+{
+  "name": "duncanc-io",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "new-post": "node scripts/new-post.mjs"
+  },
+  "dependencies": {
+    "astro": "^4.4.0",
+    "@astrojs/mdx": "^2.2.0",
+    "@astrojs/sitemap": "^3.1.0"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.20.0",
+    "@google/generative-ai": "^0.3.0"
+  }
+}

@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Group by year
+const byYear: Record<string, typeof posts> = {};
+for (const post of posts) {
+  const year = post.data.date.getFullYear().toString();
+  if (!byYear[year]) byYear[year] = [];
+  byYear[year].push(post);
+}
+const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+---
+<Base title="Blog">
+  <div class="page-wrapper">
+    <div class="container">
+      <h2 style="font-family:var(--font-serif);font-size:2rem;margin-bottom:6px;">Blog</h2>
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:36px;">Thoughts on tech, engineering, and building wealth.</p>
+
+      {years.map(year => (
+        <div>
+          <p class="section-label">{year}</p>
+          <div class="post-list">
+            {byYear[year].map(post => (
+              <a href={`/blog/${post.slug}`} class="post-item">
+                <span class="post-title">
+                  {post.data.title}
+                  {post.data.tags?.[0] && <span class="post-tag">{post.data.tags[0]}</span>}
+                </span>
+                <span class="post-meta">
+                  {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                </span>
+              </a>
+            ))}
+          </div>
+          <div style="margin-bottom:32px;"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>

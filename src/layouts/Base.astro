@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+const { title = 'Chris Duncan', description = 'Software engineer at Google. Writing about tech, finance, and building things.' } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} | duncanc.io</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="nav-logo">Chris Duncan</a>
+    <ul class="nav-links">
+      <li><a href="/blog"      class={currentPath.startsWith('/blog')      ? 'active' : ''}>Blog</a></li>
+      <li><a href="/projects"  class={currentPath.startsWith('/projects')  ? 'active' : ''}>Projects</a></li>
+      <li><a href="/videos"    class={currentPath.startsWith('/videos')    ? 'active' : ''}>Videos</a></li>
+      <li><a href="/finance"   class={currentPath.startsWith('/finance')   ? 'active' : ''}>Finance</a></li>
+      <li><a href="/about"     class={currentPath.startsWith('/about')     ? 'active' : ''}>About</a></li>
+      <li><button id="theme-toggle" title="Toggle theme">☾</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <slot />
+</main>
+
+<footer>
+  <div>© {new Date().getFullYear()} Chris Duncan · <a href="https://duncanc.io">duncanc.io</a> · Built with ☕ and curiosity</div>
+</footer>
+
+<script>
+  // Theme toggle
+  const btn = document.getElementById('theme-toggle');
+  let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(dark);
+
+  btn?.addEventListener('click', () => {
+    dark = !dark;
+    applyTheme(dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  function applyTheme(isDark: boolean) {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    if (btn) btn.textContent = isDark ? '☀' : '☾';
+  }
+
+  // Restore saved theme
+  const saved = localStorage.getItem('theme');
+  if (saved) { dark = saved === 'dark'; applyTheme(dark); }
+</script>
+
+</body>
+</html>

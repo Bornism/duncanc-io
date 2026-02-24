@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<Base title={post.data.title} description={post.data.description}>
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- Back link -->
+      <a href="/blog" style="font-size:.85rem;color:var(--muted);display:inline-flex;align-items:center;gap:6px;margin-bottom:32px;transition:color .2s;"
+         onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">
+        ← Back to Blog
+      </a>
+
+      <!-- Post header -->
+      <div style="margin-bottom:40px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+          {post.data.tags?.map((tag: string) => (
+            <span class="post-tag">{tag}</span>
+          ))}
+        </div>
+        <h1 style="font-family:var(--font-serif);font-size:2.2rem;line-height:1.2;margin-bottom:12px;">{post.data.title}</h1>
+        <p style="color:var(--muted);font-size:.875rem;">
+          {post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          {post.data.readingTime && ` · ${post.data.readingTime} min read`}
+        </p>
+      </div>
+
+      <!-- Post content -->
+      <article class="prose">
+        <Content />
+      </article>
+
+      <!-- Footer nav -->
+      <hr class="section-divider" />
+      <a href="/blog" style="font-size:.875rem;color:var(--accent);">← All posts</a>
+
+    </div>
+  </div>
+</Base>
