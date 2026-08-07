@@ -1,26 +1,27 @@
 ---
-import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog'))
+const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 ---
-<Base title="Chris Duncan">
+<Base title="Christopher Duncan">
   <div class="page-wrapper">
     <div class="container">
 
-      <!-- HERO -->
       <div class="hero">
         <img
           src="/duncanheadshot.jpg"
-          alt="Chris Duncan"
+          alt="Christopher Duncan"
           style="width:200px;height:250px;border-radius:16px;object-fit:cover;object-position:center top;border:3px solid var(--accent-lt);flex-shrink:0;"
-/>
+        />
         <div class="hero-text">
-          <h1>Chris Duncan</h1>
-          <p class="role">Customer Engineer at <span>Google Cloud</span> · Builder · Tech &amp; Finance</p>
-          <p>I'm a software engineer at Google who loves building things outside of work. Here I share side projects, write about tech and finance, and post YouTube videos. Always building something.</p>
+          <h1>Christopher Duncan</h1>
+          <p class="role">Solutions Architect · Builder · Veteran</p>
+          <p>I am a Solutions Architect in Big Tech with a passion for building things inside and outside of work. I partner with organizations to architect and scale cloud and AI solutions, turning complex infrastructure challenges into real business outcomes.</p>
+          <p>My background spans over a decade across Systems Engineering, InfoSec, and IT Operations. My current focus is at the intersection of Cloud and AI, specifically helping organizations move from basic automation to autonomous systems built for scale. As a US Army veteran I bring discipline and a service first mindset to everything I work on.</p>
+          <p>Outside of work I build in public. This site is where I share projects, write about AI and tech, and document what I am learning along the way. Finance, books, and the long game show up here too. Always building.</p>
           <div class="socials">
             <a class="social-link" href="https://github.com/bornism" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -34,17 +35,12 @@ const posts = (await getCollection('blog'))
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
               YouTube
             </a>
-            <a class="social-link" href="mailto:cduncan418@gmail.com">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-              Email
-            </a>
           </div>
         </div>
       </div>
 
       <hr class="section-divider" />
 
-      <!-- RECENT POSTS -->
       <p class="section-label">Recent Posts</p>
       <div class="post-list">
         {posts.map(post => (
@@ -54,27 +50,10 @@ const posts = (await getCollection('blog'))
               <span class="post-tag">{post.data.tags?.[0]}</span>
             </span>
             <span class="post-meta">
-              {post.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              {post.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}
             </span>
           </a>
         ))}
-      </div>
-
-      <hr class="section-divider" />
-
-      <!-- FEATURED PROJECT -->
-      <p class="section-label">Featured Project</p>
-      <div class="project-grid" style="grid-template-columns:1fr;">
-        <a href="/projects" class="project-card">
-          <div class="project-icon">📊</div>
-          <h3>FinDash — Personal Finance Dashboard</h3>
-          <p>A real-time dashboard that aggregates spending, investments, and net worth. Built with Next.js, Plaid, and Tailwind.</p>
-          <div class="project-stack">
-            <span class="stack-badge">Next.js</span>
-            <span class="stack-badge">TypeScript</span>
-            <span class="stack-badge">Plaid API</span>
-          </div>
-        </a>
       </div>
 
     </div>
